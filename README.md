@@ -104,8 +104,7 @@ Enter the starting point S0:
 ```
 ```
 --Newton-Raphson Method--
-```
-```
+
 1.Enter the polynominal function
 2.Choose another starting point
 3.Print the entered polynominal function
