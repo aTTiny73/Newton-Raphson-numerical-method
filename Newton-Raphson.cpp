@@ -5,64 +5,64 @@
 
 //Newton-Raphson numerical method for solving any order function//
 
-void unos_prenosne(int &max_brojnik,int &max_nazivnik,std::vector<double> &koeificijenti_b,std::vector<double>& koeificijenti_n){
-  std::cout<<"Enter the polynominal order of numerator:"<<std::endl;
-  std::cin>>max_brojnik;
-   for(int i = 0;i<=max_brojnik;i++){
-     std::cout<<"Enter the coefficient associated with S^"<<max_brojnik-i<<std::endl;
+void functionInput(int &max_numerator,int &max_denumerator,std::vector<double> &coefficient_b,std::vector<double>& coefficient_n){
+  std::cout<<"Enter the polynominal function order:"<<std::endl;
+  std::cin>>max_numerator;
+   for(int i = 0;i<=max_numerator;i++){
+     std::cout<<"Enter the coefficient associated with S^"<<max_numerator-i<<std::endl;
      double koef;
      std::cin>>koef;
-     koeificijenti_b.push_back(koef);
+     coefficient_b.push_back(koef);
    }
-   std::cout<<"Enter the polynominal order of denumerator:"<<std::endl;
-   std::cin>>max_nazivnik;
-  for(int i = 0;i<=max_nazivnik;i++){
-     std::cout<<"Enter the coefficient associated with S^"<<max_nazivnik-i<<std::endl;
+   std::cout<<"Enter the polynominal order of differentiated function:"<<std::endl;
+   std::cin>>max_denumerator;
+  for(int i = 0;i<=max_denumerator;i++){
+     std::cout<<"Enter the coefficient associated with S^"<<max_denumerator-i<<std::endl;
      double koef;
      std::cin>>koef;
-     koeificijenti_n.push_back(koef);
+     coefficient_n.push_back(koef);
    }
    
 }
-double newton_rapson(double &S0,std::vector<double> &koeificijenti_b,std::vector<double>& koeificijenti_n){
-  double rezultat;
+double newton_raphson(double &S0,std::vector<double> &coefficient_b,std::vector<double>& coefficient_n){
+  double result;
   double p1=0;
   double p2=0;
   int j=1;
   int k=1;
-  for(int i=0;i<koeificijenti_b.size();i++){
-    p1 += koeificijenti_b.at(i) * pow(S0,koeificijenti_b.size()-j);
+  for(int i=0;i<coefficient_b.size();i++){
+    p1 += coefficient_b.at(i) * pow(S0,coefficient_b.size()-j);
     j++;
   }
- for(int i=0;i<koeificijenti_n.size();i++){
-    p2 += koeificijenti_n.at(i) * pow(S0,koeificijenti_n.size()-k);
+ for(int i=0;i<coefficient_n.size();i++){
+    p2 += coefficient_n.at(i) * pow(S0,coefficient_n.size()-k);
     k++;
   }
-  rezultat = S0-(p1/p2);
-  S0=rezultat;
-  return rezultat;
+  result = S0-(p1/p2);
+  S0=result;
+  return result;
 }
 
-void ispis(std::vector<double> &koeificijenti_b,std::vector<double> &koeificijenti_n){
+void printFunc(std::vector<double> &coefficient_b,std::vector<double> &coefficient_n){
   int i=0;
   int j=1;
   int k=1;
   std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~"<<std::endl;
-  for(i;i<koeificijenti_b.size();i++){
-    if(koeificijenti_b.at(i)>0)
-      std::cout<<"+"<<koeificijenti_b.at(i)<<"s^"<<koeificijenti_b.size()-j;
+  for(i;i<coefficient_b.size();i++){
+    if(coefficient_b.at(i)>0)
+      std::cout<<"+"<<coefficient_b.at(i)<<"s^"<<coefficient_b.size()-j;
     else
-      std::cout<<koeificijenti_b.at(i)<<"s^"<<koeificijenti_b.size()-j;
+      std::cout<<coefficient_b.at(i)<<"s^"<<coefficient_b.size()-j;
     j++;
   }
   std::cout<<std::endl;
   std::string a (25,'-');
   std::cout<<a<<std::endl;
-  for(int z=0;z<koeificijenti_n.size();z++){
-    if(koeificijenti_n.at(z)>0)
-      std::cout<<"+"<<koeificijenti_n.at(z)<<"s^"<<koeificijenti_n.size()-k;
+  for(int z=0;z<coefficient_n.size();z++){
+    if(coefficient_n.at(z)>0)
+      std::cout<<"+"<<coefficient_n.at(z)<<"s^"<<coefficient_n.size()-k;
     else
-      std::cout<<koeificijenti_n.at(j)<<"s^"<<koeificijenti_n.size()-k;
+      std::cout<<coefficient_n.at(j)<<"s^"<<coefficient_n.size()-k;
     k++;
   }
   std::cout<<std::endl;
@@ -73,58 +73,58 @@ int main(){
 
   using namespace std;
 
-  int max_brojnik;
-  int max_nazivnik;
+  int max_numerator;
+  int max_denumerator;
   double S0;
-  vector<double> koeificijenti_b;
-  vector<double> koeificijenti_n;
-  int izbor=0;
+  vector<double> coefficient_b;
+  vector<double> coefficient_n;
+  int choice=0;
 
-  while(izbor!=4){
+  while(choice!=4){
     cout<<"--Newton-Raphson Method--"<<endl<<"-------------------------"<<endl;
-    cout<<"1.Unos prenosne funkcije"<<endl;
-    cout<<"2.Izabir druge tacke"<<endl;
-    cout<<"3.Ispis funkcije"<<endl;
-    cout<<"4.Izlaz"<<endl;
+    cout<<"1.Enter the polynominal function"<<endl;
+    cout<<"2.Choose another starting point"<<endl;
+    cout<<"3.Print the entered polynominal function"<<endl;
+    cout<<"4.Exit"<<endl;
     cout<<"-------------------------"<<endl;
-    cin>>izbor;
-    switch(izbor){
+    cin>>choice;
+    switch(choice){
      case 1 :
-       koeificijenti_b.clear();
-       koeificijenti_n.clear();
-       unos_prenosne(max_brojnik,max_nazivnik,koeificijenti_b,koeificijenti_n);
-       cout<<"Unesi broj iteracija:"<<endl;
+       coefficient_b.clear();
+       coefficient_n.clear();
+       functionInput(max_numerator,max_denumerator,coefficient_b,coefficient_n);
+       cout<<"Enter the number of iterations:"<<endl;
        int it;
        cin>>it;
-       cout<<"Unesi predpostavljenu tacku S0:"<<endl;
+       cout<<"Enter the starting point S0:"<<endl;
        cin>>S0;
        for(int i=0;i<it;i++){
-         double rezultat = newton_rapson(S0,koeificijenti_b,koeificijenti_n);
-         cout<<rezultat<<endl;
+         double result = newton_raphson(S0,coefficient_b,coefficient_n);
+         cout<<result<<endl;
         }
        break;
 
      case 2 :
-       if(koeificijenti_b.empty()||koeificijenti_n.empty())
-         cout<<"Unesi prenosnu funkciju"<<endl;
+       if(coefficient_b.empty()||coefficient_n.empty())
+         cout<<"Enter the polynominal function"<<endl;
        else{
-         cout<<"Unesi broj iteracija:"<<endl;
+         cout<<"Enter the number of iterations:"<<endl;
          int it1;
          cin>>it1;
-         cout<<"Unesi predpostavljenu tacku S0:"<<endl;
+         cout<<"Enter the starting point S0:"<<endl;
          cin>>S0;
          for(int i=0;i<it1;i++){
-           double rezultat = newton_rapson(S0,koeificijenti_b,koeificijenti_n);
-           cout<<rezultat<<endl;
+           double result = newton_raphson(S0,coefficient_b,coefficient_n);
+           cout<<result<<endl;
           }
         }
        break;
   
      case 3:
-        if(koeificijenti_b.empty()||koeificijenti_n.empty())
-         cout<<"Unesi prenosnu funkciju"<<endl;
+        if(coefficient_b.empty()||coefficient_n.empty())
+         cout<<"Enter the polynominal function"<<endl;
         else{
-         ispis(koeificijenti_b,koeificijenti_n);
+         printFunc(coefficient_b,coefficient_n);
         }
         break;
 
